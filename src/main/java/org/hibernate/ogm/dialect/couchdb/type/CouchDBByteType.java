@@ -23,10 +23,12 @@ package org.hibernate.ogm.dialect.couchdb.type;
 import org.hibernate.MappingException;
 import org.hibernate.engine.spi.Mapping;
 import org.hibernate.ogm.type.AbstractGenericBasicType;
-import org.hibernate.ogm.type.descriptor.StringMappedGridTypeDescriptor;
+import org.hibernate.ogm.type.descriptor.WrappedGridTypeDescriptor;
 import org.hibernate.type.descriptor.java.ByteTypeDescriptor;
 
 /**
+ * Type for storing {@code byte}s in CouchDB. They are stored as JSON numbers.
+ *
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
 public class CouchDBByteType extends AbstractGenericBasicType<Byte> {
@@ -34,7 +36,7 @@ public class CouchDBByteType extends AbstractGenericBasicType<Byte> {
 	public static final CouchDBByteType INSTANCE = new CouchDBByteType();
 
 	public CouchDBByteType() {
-		super( StringMappedGridTypeDescriptor.INSTANCE, ByteTypeDescriptor.INSTANCE );
+		super( WrappedGridTypeDescriptor.INSTANCE, ByteTypeDescriptor.INSTANCE );
 	}
 
 	@Override
@@ -46,5 +48,4 @@ public class CouchDBByteType extends AbstractGenericBasicType<Byte> {
 	public int getColumnSpan(Mapping mapping) throws MappingException {
 		return 1;
 	}
-
 }
