@@ -18,25 +18,39 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.dialect.model.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import java.util.List;
+import java.util.Map;
+
+import org.hibernate.ogm.datastore.couchdb.dialect.backend.json.impl.AssociationDocument;
+import org.hibernate.ogm.datastore.couchdb.dialect.backend.json.impl.Document;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
+ * A {@link CouchDBAssociation} backed by an {@link AssociationDocument}.
  *
  * @author Gunnar Morling
- * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+class DocumentBasedAssociation extends CouchDBAssociation {
+
+	private final AssociationDocument document;
+
+	public DocumentBasedAssociation(AssociationDocument document) {
+		this.document = document;
+	}
 
 	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	public List<Map<String, Object>> getRows() {
+		return document.getRows();
+	}
+
+	@Override
+	public void setRows(List<Map<String, Object>> rows) {
+		document.setRows( rows );
+	}
+
+	@Override
+	public Document getOwningDocument() {
+		return document;
 	}
 }

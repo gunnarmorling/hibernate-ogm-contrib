@@ -18,25 +18,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.options.mapping.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
+import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBEntityContext;
+import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBPropertyContext;
 import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import org.hibernate.ogm.options.navigation.impl.document.DocumentStoreEntityContextImpl;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
+ * Converts CouchDB entity-level options.
  *
  * @author Gunnar Morling
- * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+public abstract class CouchDBEntityContextImpl extends DocumentStoreEntityContextImpl<CouchDBEntityContext, CouchDBPropertyContext> implements
+		CouchDBEntityContext {
 
-	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	public CouchDBEntityContextImpl(ConfigurationContext context) {
+		super( context );
 	}
 }

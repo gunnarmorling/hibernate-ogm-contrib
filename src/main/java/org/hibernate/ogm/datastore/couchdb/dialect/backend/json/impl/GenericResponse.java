@@ -18,25 +18,61 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.dialect.backend.json.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
+ * Used to serialize and deserialize a REST CouchDB response to a PUT and a DELETE
  *
- * @author Gunnar Morling
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class GenericResponse {
 
-	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	private boolean ok;
+	private String rev;
+	private String error;
+	private String reason;
+	private String id;
+
+	public boolean getOk() {
+		return ok;
+	}
+
+	public void setOk(boolean ok) {
+		this.ok = ok;
+	}
+
+	public String getRev() {
+		return rev;
+	}
+
+	public void setRev(String rev) {
+		this.rev = rev;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

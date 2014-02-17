@@ -18,25 +18,35 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.dialect.type.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import org.hibernate.MappingException;
+import org.hibernate.engine.spi.Mapping;
+import org.hibernate.ogm.type.AbstractGenericBasicType;
+import org.hibernate.ogm.type.descriptor.StringMappedGridTypeDescriptor;
+import org.hibernate.type.descriptor.java.LongTypeDescriptor;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
+ * Type for storing {@code long}s in CouchDB. They are stored as strings to avoid precision issues with large numbers
+ * (e.g. {@link Long#MAX_VALUE} can't be properly displayed as numeric type in CouchDB's Futon console).
  *
- * @author Gunnar Morling
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+public class CouchDBLongType extends AbstractGenericBasicType<Long> {
+
+	public static final CouchDBLongType INSTANCE = new CouchDBLongType();
+
+	public CouchDBLongType() {
+		super( StringMappedGridTypeDescriptor.INSTANCE, LongTypeDescriptor.INSTANCE );
+	}
 
 	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	public String getName() {
+		return "couchdb_long";
+	}
+
+	@Override
+	public int getColumnSpan(Mapping mapping) throws MappingException {
+		return 1;
 	}
 }

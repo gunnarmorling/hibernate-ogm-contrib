@@ -18,25 +18,34 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.dialect.type.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import org.hibernate.MappingException;
+import org.hibernate.engine.spi.Mapping;
+import org.hibernate.ogm.type.AbstractGenericBasicType;
+import org.hibernate.ogm.type.descriptor.WrappedGridTypeDescriptor;
+import org.hibernate.type.descriptor.java.ByteTypeDescriptor;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
+ * Type for storing {@code byte}s in CouchDB. They are stored as JSON numbers.
  *
- * @author Gunnar Morling
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+public class CouchDBByteType extends AbstractGenericBasicType<Byte> {
+
+	public static final CouchDBByteType INSTANCE = new CouchDBByteType();
+
+	public CouchDBByteType() {
+		super( WrappedGridTypeDescriptor.INSTANCE, ByteTypeDescriptor.INSTANCE );
+	}
 
 	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	public String getName() {
+		return "couchdb_byte";
+	}
+
+	@Override
+	public int getColumnSpan(Mapping mapping) throws MappingException {
+		return 1;
 	}
 }

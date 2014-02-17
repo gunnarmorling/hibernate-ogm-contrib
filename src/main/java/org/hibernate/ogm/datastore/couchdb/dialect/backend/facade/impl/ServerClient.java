@@ -18,25 +18,45 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.dialect.backend.facade.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
+ * *
+ * The Interface used by RESTEasy to create the REST calls used to
+ * interact with the CouchDB server
  *
- * @author Gunnar Morling
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+@Path("/")
+@Produces("application/json")
+@Consumes("application/json")
+public interface ServerClient {
 
-	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
-	}
+	/**
+	 * Create a new database
+	 *
+	 * @param databaseName
+	 *            the name of the new database
+	 * @return the {@link Response}
+	 */
+	@PUT
+	@Path("{name}")
+	Response createDatabase(@PathParam("name") String databaseName);
+
+	/**
+	 * Retrieve the name of all the databases on the CouchDBServer
+	 *
+	 * @return the ClientResponse with the list of the names of the existing databases
+	 */
+	@GET
+	@Path("_all_dbs")
+	Response getAllDatabaseNames();
 }

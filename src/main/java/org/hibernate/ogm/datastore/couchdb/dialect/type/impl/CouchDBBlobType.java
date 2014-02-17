@@ -18,25 +18,32 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.dialect.type.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import org.hibernate.MappingException;
+import org.hibernate.engine.spi.Mapping;
+import org.hibernate.ogm.type.AbstractGenericBasicType;
+import org.hibernate.ogm.type.descriptor.StringMappedGridTypeDescriptor;
+import org.hibernate.type.descriptor.java.PrimitiveByteArrayTypeDescriptor;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
- *
- * @author Gunnar Morling
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+public class CouchDBBlobType extends AbstractGenericBasicType<byte[]> {
+
+	public static final CouchDBBlobType INSTANCE = new CouchDBBlobType();
+
+	public CouchDBBlobType() {
+		super( StringMappedGridTypeDescriptor.INSTANCE, PrimitiveByteArrayTypeDescriptor.INSTANCE );
+	}
 
 	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	public String getName() {
+		return "couchdb_byte_array";
+	}
+
+	@Override
+	public int getColumnSpan(Mapping mapping) throws MappingException {
+		return 1;
 	}
 }

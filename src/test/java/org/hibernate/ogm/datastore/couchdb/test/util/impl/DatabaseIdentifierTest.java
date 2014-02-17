@@ -18,25 +18,31 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb;
+package org.hibernate.ogm.datastore.couchdb.test.util.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.mapping.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBEntityContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBGlobalContextImpl;
-import org.hibernate.ogm.datastore.couchdb.options.mapping.impl.CouchDBPropertyContextImpl;
-import org.hibernate.ogm.datastore.spi.DatastoreConfiguration;
-import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
+import static org.fest.assertions.Assertions.assertThat;
+
+import org.hibernate.ogm.datastore.couchdb.util.impl.DatabaseIdentifier;
+import org.junit.Test;
 
 /**
- * Allows to configure options specific to the CouchDB document data store.
- *
- * @author Gunnar Morling
  * @author Andrea Boriero <dreborier@gmail.com/>
  */
-public class CouchDB implements DatastoreConfiguration<CouchDBGlobalContext> {
+public class DatabaseIdentifierTest {
 
-	@Override
-	public CouchDBGlobalContext getConfigurationBuilder(ConfigurationContext context) {
-		return context.createGlobalContext( CouchDBGlobalContextImpl.class, CouchDBEntityContextImpl.class, CouchDBPropertyContextImpl.class );
+	@Test
+	public void shouldReturnTheCorrectServerUri() throws Exception {
+		String expectedServerUri = "http://localhost:5984";
+		DatabaseIdentifier databaseIdentifier = new DatabaseIdentifier( "localhost", 5984, "databasename", "", "" );
+
+		assertThat( databaseIdentifier.getServerUri().toString() ).isEqualTo( expectedServerUri );
+	}
+
+	@Test
+	public void shouldReturnTheCorrectDatabaseName() throws Exception {
+		String expectedName = "not_important";
+		DatabaseIdentifier databaseIdentifier = new DatabaseIdentifier( "localhost", 5984, expectedName, "", "" );
+
+		assertThat( databaseIdentifier.getDatabaseName() ).isEqualTo( expectedName );
 	}
 }
