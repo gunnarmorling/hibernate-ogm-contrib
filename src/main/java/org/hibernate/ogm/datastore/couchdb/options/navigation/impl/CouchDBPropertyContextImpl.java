@@ -18,12 +18,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb.options.context.impl;
+package org.hibernate.ogm.datastore.couchdb.options.navigation.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.context.CouchDBEntityContext;
-import org.hibernate.ogm.datastore.couchdb.options.context.CouchDBPropertyContext;
+import org.hibernate.ogm.datastore.couchdb.options.navigation.CouchDBEntityContext;
+import org.hibernate.ogm.datastore.couchdb.options.navigation.CouchDBPropertyContext;
 import org.hibernate.ogm.datastore.document.options.navigation.impl.DocumentStorePropertyContextImpl;
-import org.hibernate.ogm.options.context.impl.ConfigurationContext;
+import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
 
 /**
  * Converts CouchDB property-level options.

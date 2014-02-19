@@ -18,7 +18,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb.options.context;
+package org.hibernate.ogm.datastore.couchdb.options.navigation;
 
 import org.hibernate.ogm.datastore.document.options.navigation.DocumentStorePropertyContext;
 

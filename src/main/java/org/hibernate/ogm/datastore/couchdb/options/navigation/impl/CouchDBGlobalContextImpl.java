@@ -18,15 +18,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb.options.context;
+package org.hibernate.ogm.datastore.couchdb.options.navigation.impl;
 
-import org.hibernate.ogm.datastore.document.options.navigation.DocumentStoreEntityContext;
+import org.hibernate.ogm.datastore.couchdb.options.navigation.CouchDBEntityContext;
+import org.hibernate.ogm.datastore.couchdb.options.navigation.CouchDBGlobalContext;
+import org.hibernate.ogm.datastore.document.options.navigation.impl.DocumentStoreGlobalContextImpl;
+import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
 
 /**
- * Allows to configure CouchDB-specific options applying on a per-entity level. These options can be overridden for
- * single properties.
+ * Converts global CouchDB options.
  *
  * @author Gunnar Morling
  */
-public interface CouchDBEntityContext extends DocumentStoreEntityContext<CouchDBEntityContext, CouchDBPropertyContext> {
+public abstract class CouchDBGlobalContextImpl extends DocumentStoreGlobalContextImpl<CouchDBGlobalContext, CouchDBEntityContext> implements
+		CouchDBGlobalContext {
+
+	public CouchDBGlobalContextImpl(ConfigurationContext context) {
+		super( context );
+	}
 }

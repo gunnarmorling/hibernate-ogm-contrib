@@ -18,22 +18,22 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.ogm.datastore.couchdb.options.context.impl;
+package org.hibernate.ogm.datastore.couchdb.options.navigation.impl;
 
-import org.hibernate.ogm.datastore.couchdb.options.context.CouchDBEntityContext;
-import org.hibernate.ogm.datastore.couchdb.options.context.CouchDBGlobalContext;
-import org.hibernate.ogm.datastore.document.options.navigation.impl.DocumentStoreGlobalContextImpl;
-import org.hibernate.ogm.options.context.impl.ConfigurationContext;
+import org.hibernate.ogm.datastore.couchdb.options.navigation.CouchDBEntityContext;
+import org.hibernate.ogm.datastore.couchdb.options.navigation.CouchDBPropertyContext;
+import org.hibernate.ogm.datastore.document.options.navigation.impl.DocumentStoreEntityContextImpl;
+import org.hibernate.ogm.options.navigation.impl.ConfigurationContext;
 
 /**
- * Converts global CouchDB options.
+ * Converts CouchDB entity-level options.
  *
  * @author Gunnar Morling
  */
-public abstract class CouchDBGlobalContextImpl extends DocumentStoreGlobalContextImpl<CouchDBGlobalContext, CouchDBEntityContext> implements
-		CouchDBGlobalContext {
+public abstract class CouchDBEntityContextImpl extends DocumentStoreEntityContextImpl<CouchDBEntityContext, CouchDBPropertyContext> implements
+		CouchDBEntityContext {
 
-	public CouchDBGlobalContextImpl(ConfigurationContext context) {
+	public CouchDBEntityContextImpl(ConfigurationContext context) {
 		super( context );
 	}
 }
