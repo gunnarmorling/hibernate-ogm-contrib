@@ -33,4 +33,19 @@
         <url>http://github.com/hibernate/hibernate-ogm-contrib</url>
         <tag>HEAD</tag>
     </scm>
+
+    <profiles>
+        <profile>
+            <id>integrationtest</id>
+            <activation>
+                <property>
+                    <name>skipITs</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>integrationtest</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
