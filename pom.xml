@@ -24,6 +24,7 @@
 
     <modules>
         <module>couchdb</module>
+        <module>modules</module>
     </modules>
 
     <scm>

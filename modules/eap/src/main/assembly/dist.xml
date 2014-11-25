@@ -1,0 +1,40 @@
+<!--
+ ~ Hibernate OGM, Domain model persistence for NoSQL datastores
+ ~
+ ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later
+ ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+<assembly>
+    <id>${classifier}</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <baseDirectory>/</baseDirectory>
+
+    <files>
+        <file>
+             <source>${module.xml.basedir}/ogm/couchdb/module.xml</source>
+             <outputDirectory>/org/hibernate/ogm/couchdb/main</outputDirectory>
+             <filtered>true</filtered>
+        </file>
+    </files>
+
+    <dependencySets>
+        <dependencySet>
+             <useProjectArtifact>false</useProjectArtifact>
+             <outputDirectory>org/hibernate/ogm/couchdb/${hibernate.ogm.couchdb.module.slot}</outputDirectory>
+             <useTransitiveFiltering>false</useTransitiveFiltering>
+             <unpack>false</unpack>
+             <includes>
+                 <include>org.hibernate.ogm.contrib:hibernate-ogm-contrib-couchdb</include>
+             </includes>
+       </dependencySet>
+    </dependencySets>
+    <fileSets>
+        <fileSet>
+            <directory>${project.build.directory}/unpacked-resteasy-modules</directory>
+            <outputDirectory>/system/layers/base</outputDirectory>
+        </fileSet>
+    </fileSets>
+</assembly>
