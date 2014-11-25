@@ -1,0 +1,5 @@
+= Hibernate OGM Contributions Reference Guide
+
+include::modules/preface.asciidoc[]
+
+include::modules/couchdb.asciidoc[]

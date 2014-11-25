@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ ~ Hibernate OGM, Domain model persistence for NoSQL datastores
+ ~
+ ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later
+ ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.hibernate.ogm.contrib</groupId>
+        <artifactId>hibernate-ogm-contrib-documentation</artifactId>
+        <version>4.1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <groupId>org.hibernate.ogm.contrib</groupId>
+    <artifactId>hibernate-ogm-contrib-javadoc</artifactId>
+    <packaging>jar</packaging>
+
+    <name>Hibernate OGM Contributions Javadoc</name>
+    <description>Hibernate OGM Contributions helper module to build aggregated javadoc</description>
+
+    <properties>
+        <!-- Skip artifact deployment -->
+        <maven.deploy.skip>true</maven.deploy.skip>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.hibernate.ogm</groupId>
+                <artifactId>hibernate-ogm-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <!-- We need the dependencies having annotations we're using
+            to workaround a javadoc tool bug -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-search-orm</artifactId>
+        </dependency>
+        <!-- We also need our own module dependencies so that
+            we import all types from dependant modules -->
+        <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-ehcache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-infinispan</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-mongodb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.ogm</groupId>
+            <artifactId>hibernate-ogm-neo4j</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.ogm.contrib</groupId>
+            <artifactId>hibernate-ogm-contrib-couchdb</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <configuration>
+                    <sourcepath>
+                        ${basedir}/../../couchdb/src/main/java
+                    </sourcepath>
+                    <show>public</show>
+                    <docfilessubdirs>true</docfilessubdirs>
+                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
+                    <links>
+                        <link>http://download.oracle.com/javase/6/docs/api/</link>
+                        <link>http://docs.jboss.org/hibernate/orm/4.1/javadocs/</link>
+                        <link>http://docs.jboss.org/hibernate/search/4.2/api/</link>
+                        <link>http://lucene.apache.org/java/3_6_1/api/all</link>
+                    </links>
+                    <packagesheader>Hibernate OGM Contributions Packages</packagesheader>
+                    <doctitle>Hibernate OGM Contributions ${project.version}</doctitle>
+                    <windowtitle>Hibernate OGM Contributions ${project.version}</windowtitle>
+                    <bottom>
+                        <![CDATA[Copyright &copy; ${project.inceptionYear}-{currentYear} <a href="http://redhat.com">Red Hat, Inc.</a>, Emmanuel Bernard and various contributors. All Rights Reserved.]]></bottom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>create-javadocs</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>javadoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

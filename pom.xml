@@ -47,5 +47,17 @@
                 <module>integrationtest</module>
             </modules>
         </profile>
+        <profile>
+            <id>doc</id>
+            <activation>
+                <property>
+                    <name>skipDocs</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>documentation</module>
+            </modules>
+        </profile>
     </profiles>
 </project>

@@ -1,0 +1,45 @@
+[[preface]]
+
+[preface]
+== Preface
+
+Hibernate OGM Contributions is a side project of Hibernate Object/Grid Mapper (OGM).
+It contains community-led contributions such as grid dialects for additional NoSQL datastores
+and incubating grid dialects.
+
+Please refer to the Hibernate OGM http://hibernate.org/ogm/documentation/[reference documentation]
+in order to learn more about Hibernate OGM itself and how to get started with it.
+
+Incubating dialects should be used with care.
+Specifically, their persistent mappings for JPA constructs may change from release to release.
+Therefore it cannot be guaranteed that data which has been persisted by an incubating grid dialect
+can be read back after upgrading to the next version of that dialect.
+
+Community-led and incubating modules all use
+
+* +org.hibernate.ogm.contrib+ as group id and
+* +hibernate-ogm-contrib-<%MODULE%>+ as artifact id.
+
+If an incubating module has matured and is considered stable,
+it may become part of the Hibernate OGM core distribution.
+In this case its group id will be changed to +org.hibernate.ogm+
+and its artifact id to +hibernate-ogm-<%MODULE%>+.
+
+You want to contribute a grid dialect for your NoSQL datastore of choice?
+You'd like to work on one of the incubating or community-led dialects?
+That's great!
+Please check https://docs.jboss.org/hibernate/ogm/4.1/reference/en-US/html_single/#ogm-howtocontribute-contribute[the contribution guide] to learn more.
+
+Hibernate OGM Contributions is released under the LGPL open source license.
+
+[WARNING]
+====
+This documentation and this project are work in progress.
+Please give us feedback on
+
+* what you like
+* what you don't like
+* what is confusing
+
+Check https://docs.jboss.org/hibernate/ogm/4.1/reference/en-US/html_single/#ogm-howtocontribute-contribute[the contribution guide] on how to contact us.
+====
