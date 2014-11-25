@@ -59,5 +59,17 @@
                 <module>documentation</module>
             </modules>
         </profile>
+        <profile>
+            <id>distro</id>
+            <activation>
+                <property>
+                    <name>skipDistro</name>
+                    <value>!true</value>
+                </property>
+            </activation>
+            <modules>
+                <module>distribution</module>
+            </modules>
+        </profile>
     </profiles>
 </project>

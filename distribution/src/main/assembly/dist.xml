@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+ ~ Hibernate OGM, Domain model persistence for NoSQL datastores
+ ~
+ ~ License: GNU Lesser General Public License (LGPL), version 2.1 or later
+ ~ See the lgpl.txt file in the root directory or <http://www.gnu.org/licenses/lgpl-2.1.html>.
+  -->
+
+<!--
+  When updating this file, make sure we don't include duplicate jars in different subdirectories.
+  Generate the distribution preview to see how it looks like:
+   mvn clean package -DskipDistro=false -DskipTests=true -DskipITs=true
+
+  To inspect which jars are being distributed and look for duplicates this might be handy:
+  tar -ztvf target/*-dist.tar.gz | grep .jar| sed -e "s/.*\/dist//" -e "s/\(\/lib\/[^\/]*\)\/\(.*\)/\2 \t\t\t\1/" | sort
+ -->
+<assembly>
+    <id>dist</id>
+    <formats>
+        <format>tar.gz</format>
+        <format>zip</format>
+    </formats>
+
+    <!-- Configure the module artifacts which make it into the distribution bundle -->
+    <moduleSets>
+
+        <!--
+        #######################################################################
+        #  hibernate-ogm-couchdb
+        #######################################################################
+         -->
+
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>org.hibernate.ogm.contrib:hibernate-ogm-contrib-couchdb</include>
+            </includes>
+            <binaries>
+                <outputDirectory>dist/lib/couchdb</outputDirectory>
+                <unpack>false</unpack>
+                <dependencySets>
+                    <dependencySet>
+                        <outputDirectory>/dist/lib/couchdb</outputDirectory>
+                        <useProjectArtifact>false</useProjectArtifact>
+                        <scope>runtime</scope>
+                        <includes>
+                            <include>org.jboss.resteasy:resteasy-client</include>
+                            <include>org.jboss.resteasy:resteasy-jackson2-provider</include>
+                            <include>org.jboss.resteasy:resteasy-jaxrs</include>
+                            <include>org.jboss.resteasy:jaxrs-api</include>
+                            <include>org.jboss.spec.javax.annotation:jboss-annotations-api_1.1_spec</include>
+                            <include>javax.activation:activation</include>
+                            <include>org.apache.httpcomponents:httpclient</include>
+                            <include>org.apache.httpcomponents:httpcore</include>
+                            <include>commons-logging:commons-logging</include>
+                            <include>commons-codec:commons-codec</include>
+                            <include>commons-io:commons-io</include>
+                            <include>net.jcip:jcip-annotations</include>
+                            <include>com.fasterxml.jackson.core:jackson-core</include>
+                            <include>com.fasterxml.jackson.core:jackson-databind</include>
+                            <include>com.fasterxml.jackson.core:jackson-annotations</include>
+                        </includes>
+                    </dependencySet>
+                </dependencySets>
+            </binaries>
+        </moduleSet>
+
+        <!--
+        #######################################################################
+        #  API Javadoc
+        #######################################################################
+         -->
+        <moduleSet>
+            <useAllReactorProjects>true</useAllReactorProjects>
+            <includes>
+                <include>org.hibernate.ogm.contrib:hibernate-ogm-contrib-javadoc</include>
+            </includes>
+            <sources>
+                <includeModuleDirectory>false</includeModuleDirectory>
+                <fileSets>
+                    <fileSet>
+                        <directory>target/site/apidocs</directory>
+                        <outputDirectory>docs/api</outputDirectory>
+                    </fileSet>
+                </fileSets>
+            </sources>
+        </moduleSet>
+
+    </moduleSets>
+
+    <files>
+        <file>
+            <source>../readme.md</source>
+            <outputDirectory>/</outputDirectory>
+            <filtered>true</filtered>
+        </file>
+        <file>
+            <source>../license.txt</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        <!--
+        TODO What to do with the change log? Should there be a separate JIRA project for Hibernate OGM Contrib?
+        <file>
+            <source>../changelog.txt</source>
+            <outputDirectory>/</outputDirectory>
+        </file>
+        -->
+    </files>
+
+    <fileSets>
+        <!-- Include all sources -->
+        <fileSet>
+            <directory>../.</directory>
+            <outputDirectory>sources</outputDirectory>
+            <useDefaultExcludes>true</useDefaultExcludes>
+            <excludes>
+                <exclude>../readme.md</exclude>
+                <exclude>../license.txt</exclude>
+                <exclude>../changelog.txt</exclude>
+                <exclude>../*.sh</exclude>
+                <exclude>**/.git/**</exclude>
+                <exclude>**/.gitignore</exclude>
+                <exclude>**/.gitattributes</exclude>
+                <exclude>**/.bin/**</exclude>
+                <exclude>**/.settings/**</exclude>
+                <exclude>**/.project</exclude>
+                <exclude>**/.classpath</exclude>
+                <exclude>**/.factorypath</exclude>
+                <exclude>**/bin/**</exclude>
+                <exclude>**/.externalToolBuilders/**</exclude>
+                <exclude>**/target/**</exclude>
+                <exclude>**/.idea/**</exclude>
+                <exclude>**/*.iml</exclude>
+                <exclude>**/*.log</exclude>
+            </excludes>
+        </fileSet>
+        <fileSet>
+            <directory>../documentation/manual/target/docbook/publish</directory>
+            <outputDirectory>docs/reference</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+</assembly>
