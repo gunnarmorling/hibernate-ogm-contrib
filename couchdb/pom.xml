@@ -3,13 +3,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>hibernate-ogm-parent</artifactId>
-        <groupId>org.hibernate.ogm</groupId>
+        <artifactId>hibernate-ogm-contrib-parent</artifactId>
+        <groupId>org.hibernate.ogm.contrib</groupId>
         <version>4.1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>hibernate-ogm-couchdb</artifactId>
+    <artifactId>hibernate-ogm-contrib-couchdb</artifactId>
 
     <name>Hibernate OGM for CouchDB</name>
     <description>Persist objects in CouchDB</description>
@@ -17,7 +17,7 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>${project.groupId}</groupId>
+                <groupId>org.hibernate.ogm</groupId>
                 <artifactId>hibernate-ogm-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>

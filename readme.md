@@ -1,0 +1,106 @@
+# Hibernate OGM Contributions
+
+Version: 4.1.0.Beta8 - 30 Oct 2014
+
+## Description
+
+Hibernate OGM Contributions provides projects and modules based on top of Hibernate OGM, such as grid dialects for specific NoSQL stores.
+These projects may be community-led and/or incubating.
+In contrast to the grid dialect shipping with the Hibernate OGM core distribution,
+the dialects in the Contributions umbrella may be subject to incompatible changes regarding the structure of persisted data.
+
+Checkout <http://ogm.hibernate.org> for more information.
+
+## Build instructions
+
+The code is available on GitHub at <https://github.com/hibernate/hibernate-ogm-contrib>.
+
+To run the full project build including tests for all backends, documentation etc. execute:
+
+    mvn clean install -s settings-example.xml
+
+Note that for running the test suite against a separately installed CouchDB server its host name must be specified via an environment variable.
+See the sections below for the details.
+
+To speed things up, there are several options for skipping parts of the build.
+To run the minimum project build without integration tests, documentation and distribution execute:
+
+    mvn clean install -DskipITs -DskipDocs -DskipDistro -s settings-example.xml
+
+The following sections describe these options in more detail.
+
+### Integration tests
+
+You can skip integration tests by specifying the `skipITs` property:
+
+    mvn clean install -DskipITs -s settings-example.xml
+
+### Documentation
+
+The documentation is built by default as part of the project build. You can skip it by specifying the `skipDocs` property:
+
+    mvn clean install -DskipDocs -s settings-example.xml
+
+If you just want to build the documentation, run it from the _documentation/manual_ subdirectory.
+
+For rapid documentation testing, you can limit the generated format to html to speed up the process
+
+    mvn clean install -f documentation/manual/pom.xml -s settings-example.xml -Djdocbook.format=html_single
+
+### Distribution
+
+The distribution bundle is built by default as part of the project build. You can skip it by specifying the `skipDistro` property:
+
+    mvn clean install -DskipDistro -s settings-example.xml
+
+### Integration tests
+
+Integration tests can be run from the integrationtest module and the default behaviour is to download the WildFly application server,
+unpack the modules in it and run the tests using Arquillian.
+
+There are two additional profiles that can be used to run the test on EAP 6.x instead.
+If you have an existing installation you can run the command:
+
+   mvn clean install -Deap.home=/home/user/eap_home -s settings-example.xml
+
+Alternativly, you can let the build dowload EAP 6.x (instead of WildFly) from the red hat early access repository with:
+
+   mvn clean install -Peap -s settings-example.xml
+
+[WARNING]
+====
+Be careful when using on existing installation since the modules used by the build are going to be extracted into the
+server you want to run the test, changing the original setup.
+====
+
+### CouchDB
+
+For running the tests in the _couchdb_ module an installed CouchDB server is required. Specify its host name by
+setting the environment variable `COUCHDB_HOSTNAME` prior to running the test suite:
+
+    export COUCHDB_HOSTNAME=couchdb-machine
+
+If this variable is not set, the _couchdb_ module still will be compiled and packaged but the tests will be skipped.
+
+## Contact
+
+Latest Documentation:
+
+   <http://community.jboss.org/en/hibernate/ogm>
+
+Bug Reports:
+
+   Hibernate JIRA (preferred): <https://hibernate.onjira.com/browse/OGM>
+   <hibernate-dev@lists.jboss.org>
+
+Free Technical Support:
+
+   <https://forum.hibernate.org/viewforum.php?f=31>
+
+## Notes
+
+If you want to contribute, come to the <hibernate-dev@lists.jboss.org> mailing list
+or join us on #hibernate-dev on freenode (login required)
+
+This software and its documentation are distributed under the terms of the
+FSF Lesser Gnu Public License (see license.txt).
